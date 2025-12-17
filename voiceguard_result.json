@@ -1,0 +1,54 @@
+{
+  "voice_summary": {
+    "customer_id": "CUST-2002",
+    "symptoms": [
+      "overheat",
+      "vibration",
+      "oil"
+    ],
+    "severity": 0.8,
+    "intent": "service_request"
+  },
+  "telemetry_features": {
+    "engine_temp_norm": 0.65,
+    "battery_drop_norm": 0.19999999999999987,
+    "oil_pressure_low_norm": 0.3,
+    "vibration_norm": 0.425,
+    "speed_norm": 0.1388888888888889,
+    "odometer_norm": 0.6,
+    "error_code_count": 2.0
+  },
+  "diagnosis": {
+    "risk_score": 0.907,
+    "issue_category": "Cooling/Overheat",
+    "signals": {
+      "engine_temp_norm": 0.65,
+      "battery_drop_norm": 0.19999999999999987,
+      "oil_pressure_low_norm": 0.3,
+      "vibration_norm": 0.425,
+      "speed_norm": 0.1388888888888889,
+      "odometer_norm": 0.6,
+      "error_code_count": 2.0,
+      "voice_severity": 0.8
+    }
+  },
+  "schedule": {
+    "center_id": "BLR-01",
+    "center_name": "Bengaluru Central",
+    "slot": "2025-12-17T17:42:05Z",
+    "eta_minutes": 0,
+    "priority": "urgent"
+  },
+  "security_alerts": [],
+  "oem_feedback": {
+    "oem_quality_flag": "investigate",
+    "recommended_action": "pre-stock parts"
+  },
+  "analytics": {
+    "customer_id": "CUST-2002",
+    "issue_category": "Cooling/Overheat",
+    "risk_score": 0.907,
+    "priority": "urgent",
+    "center_id": "BLR-01"
+  }
+}
