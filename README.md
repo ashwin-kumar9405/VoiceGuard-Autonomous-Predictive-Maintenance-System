@@ -110,4 +110,5 @@
 - Smart scheduling: nearest center, urgent vs normal, slot and ETA
 - Conversational interface: text transcript drives severity and category
 - Scalability: stateless agents; cloud‑ready APIs and model hosting
-
+## Deploy
+Link - https://voiceguard-autonomous-predictive-maintenance-system-j4fgappwpt.streamlit.app/
