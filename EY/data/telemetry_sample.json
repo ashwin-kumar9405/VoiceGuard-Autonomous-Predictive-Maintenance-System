@@ -1,0 +1,11 @@
+{
+  "engine_temp_c": 102.5,
+  "battery_voltage": 11.9,
+  "oil_pressure_psi": 28.0,
+  "vibration_g": 0.85,
+  "speed_kph": 25.0,
+  "odometer_km": 120000,
+  "error_codes": ["P0520", "P0302"],
+  "location": [12.9716, 77.5946]
+}
+

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>VoiceGuard Prototype</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 20px; background: #f6f7f8; }
+      header { margin-bottom: 16px; }
+      h1 { font-size: 22px; margin: 0 0 8px; }
+      textarea, input, button { font: inherit; }
+      .card { background: white; padding: 16px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); margin-bottom: 16px; }
+      .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      pre { background: #0f172a; color: #e5e7eb; padding: 12px; border-radius: 6px; overflow: auto; }
+      label { font-weight: 600; display: block; margin-bottom: 6px; }
+      .small { color: #64748b; font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>VoiceGuard: Autonomous Predictive Maintenance</h1>
+      <div class="small">Multi-agent pipeline: Voice → Telemetry → Diagnosis → Scheduling → Feedback</div>
+    </header>
+    <section class="card">
+      <div class="row">
+        <div>
+          <label>Voice transcript</label>
+          <textarea id="voice" rows="6">My car has been overheating and there is a rattling vibration at low speeds. The oil pressure light flickered. It's urgent.</textarea>
+        </div>
+        <div>
+          <label>Telemetry JSON</label>
+          <textarea id="telemetry" rows="6">{
+  "engine_temp_c": 102.5,
+  "battery_voltage": 11.9,
+  "oil_pressure_psi": 28.0,
+  "vibration_g": 0.85,
+  "speed_kph": 25.0,
+  "odometer_km": 120000,
+  "error_codes": ["P0520", "P0302"],
+  "location": [12.9716, 77.5946]
+}</textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Customer ID</label>
+          <input id="customerId" value="CUST-2002" />
+        </div>
+        <div>
+          <label>Customer location [lat, lon]</label>
+          <input id="custLoc" value="12.9716,77.5946" />
+        </div>
+      </div>
+      <button id="run">Run Prediction</button>
+    </section>
+    <section class="card">
+      <label>Result</label>
+      <pre id="out">{}</pre>
+    </section>
+    <script>
+      const runBtn = document.getElementById('run');
+      runBtn.addEventListener('click', async () => {
+        const voice = document.getElementById('voice').value;
+        let telemetry;
+        try { telemetry = JSON.parse(document.getElementById('telemetry').value); }
+        catch(e) { alert('Telemetry must be valid JSON'); return; }
+        const loc = document.getElementById('custLoc').value.split(',').map(x => parseFloat(x.trim()));
+        const customer = { id: document.getElementById('customerId').value, location: loc };
+        const res = await fetch('/api/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ voice_text: voice, telemetry, customer })
+        });
+        const json = await res.json();
+        document.getElementById('out').textContent = JSON.stringify(json, null, 2);
+      });
+    </script>
+  </body>
+</html>
+
